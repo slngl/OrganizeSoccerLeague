@@ -48,6 +48,10 @@ class TeamsFragment : Fragment(R.layout.fragment_teams) {
             }
         })
 
+        binding.btDrawFixture.setOnClickListener {
+            findNavController().navigate(R.id.action_teamsFragment_to_fixtureFragment)
+        }
+
     }
 
     override fun onDestroyView() {
