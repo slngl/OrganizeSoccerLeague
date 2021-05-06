@@ -1,4 +1,4 @@
-package com.slngl.organizesoccerleague.ui.adapter
+package com.slngl.organizesoccerleague.ui
 
 import android.os.Bundle
 import android.view.View
@@ -6,10 +6,11 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.slngl.organizesoccerleague.R
+import com.slngl.organizesoccerleague.base.AppConstants.ARG_ROUND
 import com.slngl.organizesoccerleague.databinding.FragmentRoundBinding
+import com.slngl.organizesoccerleague.ui.adapter.RoundAdapter
 import com.slngl.organizesoccerleague.viewModel.FixtureViewModel
 
-const val ARG_ROUND = "arg.round"
 
 class RoundFragment : Fragment(R.layout.fragment_round) {
 
@@ -21,6 +22,8 @@ class RoundFragment : Fragment(R.layout.fragment_round) {
     }
 
     private lateinit var viewModel: FixtureViewModel
+
+    private val roundAdapter = RoundAdapter()
 
     //Arguments
     private val argRoundId: Int by lazy {
@@ -38,6 +41,19 @@ class RoundFragment : Fragment(R.layout.fragment_round) {
 
         //get round list from VM
         viewModel.getFixture()
+
+        binding.rvFixture.adapter = roundAdapter
+
+        viewModel.liveFixture.observe(viewLifecycleOwner, { roundList ->
+            roundList.forEach { round ->
+                if (argRoundId == round.id) {
+                    round.matchList?.let {
+                        roundAdapter.submitList(it)
+                    }
+                    binding.textView.text = "${round.round}. WEEK"
+                }
+            }
+        })
 
     }
 
