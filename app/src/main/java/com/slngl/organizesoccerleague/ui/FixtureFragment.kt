@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.slngl.organizesoccerleague.R
 import com.slngl.organizesoccerleague.databinding.FragmentFixtureBinding
+import com.slngl.organizesoccerleague.ui.adapter.FixtureAdapter
 import com.slngl.organizesoccerleague.viewModel.FixtureViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -25,6 +26,15 @@ class FixtureFragment : Fragment(R.layout.fragment_fixture) {
 
         //get data from VM
         viewModel.getFixture()
+
+        //observe round list for viewPager
+        viewModel.liveFixture.observe(viewLifecycleOwner,{
+            if (binding.vpPages.adapter == null) {
+                val adapter = FixtureAdapter(this, it)
+                binding.vpPages.adapter = adapter
+                binding.vpPages.offscreenPageLimit = adapter.itemCount
+            }
+        })
 
     }
 
