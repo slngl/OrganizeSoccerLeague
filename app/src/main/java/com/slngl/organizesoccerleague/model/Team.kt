@@ -1,6 +1,4 @@
-package com.slngl.organizesoccerleague.network
-
-import com.slngl.organizesoccerleague.model.Country
+package com.slngl.organizesoccerleague.model
 
 data class Team(
     val country: Country,
