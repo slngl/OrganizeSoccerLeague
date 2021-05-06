@@ -38,6 +38,7 @@ class TeamsFragment : Fragment(R.layout.fragment_teams) {
         viewModel.liveTeams.observe(viewLifecycleOwner, {
             it.teams?.let {  teamList ->
                 teamsAdapter.submitList(teamList)
+                viewModel.drawFixture(teamList)
             }
         })
 
