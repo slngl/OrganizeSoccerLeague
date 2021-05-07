@@ -6,9 +6,11 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.muddzdev.styleabletoast.StyleableToast
 import com.slngl.organizesoccerleague.R
 import com.slngl.organizesoccerleague.databinding.FragmentTeamsBinding
 import com.slngl.organizesoccerleague.ui.adapter.TeamsAdapter
+import com.slngl.organizesoccerleague.util.getColorFromAttr
 import com.slngl.organizesoccerleague.viewModel.TeamsViewModel
 
 
@@ -46,6 +48,12 @@ class TeamsFragment : Fragment(R.layout.fragment_teams) {
         viewModel.liveError.observe(viewLifecycleOwner, {
             if (it!=null){
                 Toast.makeText(requireContext(), "Please check your network connection", Toast.LENGTH_LONG).show()
+                StyleableToast.Builder(requireContext())
+                    .text("Please check your network connection")
+                    .textBold()
+                    .textColor(requireContext().getColorFromAttr(R.attr.titleTextColor))
+                    .backgroundColor(requireContext().getColorFromAttr(R.attr.errorEnabled))
+                    .show()
             }
         })
 
