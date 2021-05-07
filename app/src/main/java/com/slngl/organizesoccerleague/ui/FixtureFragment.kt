@@ -1,5 +1,6 @@
 package com.slngl.organizesoccerleague.ui
 
+import android.animation.Animator
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -26,6 +27,20 @@ class FixtureFragment : Fragment(R.layout.fragment_fixture) {
         fragmentFixtureBinding = binding
 
         viewModel = ViewModelProvider(requireActivity()).get(FixtureViewModel::class.java)
+
+        binding.animFixture.addAnimatorListener(object : Animator.AnimatorListener {
+            override fun onAnimationStart(animator: Animator) {
+                // Make the LottieAnimationView visible here
+            }
+
+            override fun onAnimationEnd(animator: Animator) {
+                // Hide the Lottie AnimationView here
+                binding.animFixture.visibility=View.GONE
+            }
+
+            override fun onAnimationCancel(animator: Animator) {}
+            override fun onAnimationRepeat(animator: Animator) {}
+        })
 
         //get data from VM
         viewModel.getFixture()
