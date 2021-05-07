@@ -14,4 +14,5 @@ object AppModule {
     @Singleton
     @BaseUrlQualifier
     fun provideBaseUrl(): String = "https://livescore-api.com/api-client/"
+
 }

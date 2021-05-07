@@ -1,4 +1,3 @@
-
 package com.slngl.organizesoccerleague.ui.adapter
 
 import android.view.View

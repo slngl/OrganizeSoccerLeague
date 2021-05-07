@@ -10,7 +10,7 @@ import com.slngl.organizesoccerleague.model.Team
 
 class TeamsAdapter : RecyclerView.Adapter<TeamsAdapter.TeamViewHolder>() {
 
-    inner class TeamViewHolder(binding : ItemTeamBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class TeamViewHolder(binding: ItemTeamBinding) : RecyclerView.ViewHolder(binding.root) {
         val teamName = binding.tvTitle
         fun bindTo(item: Team?) {
             teamName.text = item?.name

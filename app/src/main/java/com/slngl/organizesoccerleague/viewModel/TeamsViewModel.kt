@@ -54,13 +54,13 @@ class TeamsViewModel @Inject constructor(
         var list = teamList.toMutableList()
 
         for (i in 0 until teamSize - 1) {
-            val homeTeamList = mutableListOf<String>()
+            val matchList = mutableListOf<String>()
             for (j in 0 until teamSize / 2) {
                 val secondIndex = teamSize - 1 - j
-                homeTeamList.add(j, list[j].name + "///" + list[secondIndex].name)
+                matchList.add(j, list[j].name + "///" + list[secondIndex].name)
             }
 
-            val r = Round(homeTeamList, i + 1)
+            val r = Round(matchList, i + 1)
             insertRound(r)
 
             val newList: MutableList<Team> = mutableListOf()

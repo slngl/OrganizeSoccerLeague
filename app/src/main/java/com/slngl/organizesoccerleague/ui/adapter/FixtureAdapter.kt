@@ -5,7 +5,8 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.slngl.organizesoccerleague.db.Round
 import com.slngl.organizesoccerleague.ui.RoundFragment
 
-class FixtureAdapter(fragment: Fragment, val listOfPages: List<Round?>): FragmentStateAdapter(fragment) {
+class FixtureAdapter(fragment: Fragment, val listOfPages: List<Round?>) :
+    FragmentStateAdapter(fragment) {
 
     override fun getItemCount(): Int {
         return listOfPages.size

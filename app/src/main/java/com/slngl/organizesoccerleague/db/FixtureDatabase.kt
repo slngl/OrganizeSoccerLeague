@@ -6,6 +6,6 @@ import androidx.room.TypeConverters
 
 @Database(entities = [Round::class], version = 1)
 @TypeConverters(Converters::class)
-abstract class FixtureDatabase : RoomDatabase(){
+abstract class FixtureDatabase : RoomDatabase() {
     abstract fun roundDao(): RoundDao
 }

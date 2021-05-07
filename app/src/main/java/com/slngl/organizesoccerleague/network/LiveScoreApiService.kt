@@ -10,5 +10,5 @@ interface LiveScoreApiService {
 //    https://livescore-api.com/api-client/teams/list.json?key=rSE51PkvI6DJlLWI&secret=ZgrF4NBfCOcYGck85Zd6PxByEfhZ1dI1
 
     @GET("teams/list.json?key=rSE51PkvI6DJlLWI&secret=ZgrF4NBfCOcYGck85Zd6PxByEfhZ1dI1")
-    suspend fun getTeams() : Response<BaseResponse<Data>>
+    suspend fun getTeams(): Response<BaseResponse<Data>>
 }

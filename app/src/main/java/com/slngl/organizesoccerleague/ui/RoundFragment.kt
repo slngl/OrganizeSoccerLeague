@@ -10,8 +10,9 @@ import com.slngl.organizesoccerleague.base.AppConstants.ARG_ROUND
 import com.slngl.organizesoccerleague.databinding.FragmentRoundBinding
 import com.slngl.organizesoccerleague.ui.adapter.RoundAdapter
 import com.slngl.organizesoccerleague.viewModel.FixtureViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class RoundFragment : Fragment(R.layout.fragment_round) {
 
     private var fragmentRoundBinding: FragmentRoundBinding? = null
@@ -39,11 +40,9 @@ class RoundFragment : Fragment(R.layout.fragment_round) {
 
         fragmentRoundBinding = binding
 
-        //get round list from VM
-        viewModel.getFixture()
-
         binding.rvFixture.adapter = roundAdapter
 
+        //observe round list
         viewModel.liveFixture.observe(viewLifecycleOwner, { roundList ->
             roundList.forEach { round ->
                 if (argRoundId == round.id) {

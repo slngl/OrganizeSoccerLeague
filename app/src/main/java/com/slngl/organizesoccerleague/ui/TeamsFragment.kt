@@ -2,7 +2,6 @@ package com.slngl.organizesoccerleague.ui
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -12,8 +11,9 @@ import com.slngl.organizesoccerleague.databinding.FragmentTeamsBinding
 import com.slngl.organizesoccerleague.ui.adapter.TeamsAdapter
 import com.slngl.organizesoccerleague.util.getColorFromAttr
 import com.slngl.organizesoccerleague.viewModel.TeamsViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class TeamsFragment : Fragment(R.layout.fragment_teams) {
 
     private lateinit var viewModel: TeamsViewModel
@@ -34,11 +34,11 @@ class TeamsFragment : Fragment(R.layout.fragment_teams) {
         //get data from VM
         viewModel.getTeams()
 
-        binding.rvTeams.adapter=teamsAdapter
+        binding.rvTeams.adapter = teamsAdapter
 
         //observe team list
         viewModel.liveTeams.observe(viewLifecycleOwner, {
-            it.teams?.let {  teamList ->
+            it.teams?.let { teamList ->
                 teamsAdapter.submitList(teamList)
                 viewModel.drawFixture(teamList)
             }
@@ -46,8 +46,7 @@ class TeamsFragment : Fragment(R.layout.fragment_teams) {
 
         //observe error message
         viewModel.liveError.observe(viewLifecycleOwner, {
-            if (it!=null){
-                Toast.makeText(requireContext(), "Please check your network connection", Toast.LENGTH_LONG).show()
+            if (it != null) {
                 StyleableToast.Builder(requireContext())
                     .text("Please check your network connection")
                     .textBold()
@@ -60,7 +59,6 @@ class TeamsFragment : Fragment(R.layout.fragment_teams) {
         binding.btDrawFixture.setOnClickListener {
             findNavController().navigate(R.id.action_teamsFragment_to_fixtureFragment)
         }
-
     }
 
     override fun onDestroyView() {

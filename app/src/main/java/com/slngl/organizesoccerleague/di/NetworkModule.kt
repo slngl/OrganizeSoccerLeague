@@ -17,7 +17,7 @@ object NetworkModule {
 
     @Singleton
     @Provides
-    fun provideOkHttpClient() : OkHttpClient {
+    fun provideOkHttpClient(): OkHttpClient {
         return OkHttpClient().newBuilder().build()
     }
 

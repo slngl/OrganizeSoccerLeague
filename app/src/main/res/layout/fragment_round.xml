@@ -16,10 +16,14 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <TextView
+            <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/textView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                android:paddingBottom="4dp"
+                android:paddingTop="4dp"
                 tools:text="29. WEEK" />
 
             <androidx.recyclerview.widget.RecyclerView
