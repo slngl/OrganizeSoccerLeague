@@ -6,30 +6,30 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.slngl.organizesoccerleague.databinding.ItemTeamBinding
-import com.slngl.organizesoccerleague.model.Team
+import com.slngl.organizesoccerleague.model.TeamsItem
 
 class TeamsAdapter : RecyclerView.Adapter<TeamsAdapter.TeamViewHolder>() {
 
     inner class TeamViewHolder(binding: ItemTeamBinding) : RecyclerView.ViewHolder(binding.root) {
         val teamName = binding.tvTitle
-        fun bindTo(item: Team?) {
-            teamName.text = item?.name
+        fun bindTo(item: TeamsItem?) {
+            teamName.text = item?.teamName
         }
     }
 
-    private val diffUtil = object : DiffUtil.ItemCallback<Team>() {
-        override fun areItemsTheSame(oldItem: Team, newItem: Team): Boolean {
+    private val diffUtil = object : DiffUtil.ItemCallback<TeamsItem>() {
+        override fun areItemsTheSame(oldItem: TeamsItem, newItem: TeamsItem): Boolean {
             return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: Team, newItem: Team): Boolean {
+        override fun areContentsTheSame(oldItem: TeamsItem, newItem: TeamsItem): Boolean {
             return oldItem == newItem
         }
     }
 
     private val recyclerListDiffer = AsyncListDiffer(this, diffUtil)
 
-    fun submitList(itemList: List<Team>) {
+    fun submitList(itemList: List<TeamsItem>) {
         recyclerListDiffer.submitList(itemList)
     }
 

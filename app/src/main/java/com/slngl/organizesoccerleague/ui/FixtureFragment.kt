@@ -9,15 +9,15 @@ import com.muddzdev.styleabletoast.StyleableToast
 import com.slngl.organizesoccerleague.R
 import com.slngl.organizesoccerleague.databinding.FragmentFixtureBinding
 import com.slngl.organizesoccerleague.ui.adapter.FixtureAdapter
-import com.slngl.organizesoccerleague.ui.adapter.ZoomOutPageTransformer
+import com.slngl.organizesoccerleague.util.ZoomOutPageTransformer
 import com.slngl.organizesoccerleague.util.getColorFromAttr
-import com.slngl.organizesoccerleague.viewModel.FixtureViewModel
+import com.slngl.organizesoccerleague.viewModel.SharedViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class FixtureFragment : Fragment(R.layout.fragment_fixture) {
 
-    private lateinit var viewModel: FixtureViewModel
+    private lateinit var viewModel: SharedViewModel
 
     private var fragmentFixtureBinding: FragmentFixtureBinding? = null
 
@@ -26,24 +26,20 @@ class FixtureFragment : Fragment(R.layout.fragment_fixture) {
         val binding = FragmentFixtureBinding.bind(view)
         fragmentFixtureBinding = binding
 
-        viewModel = ViewModelProvider(requireActivity()).get(FixtureViewModel::class.java)
+        viewModel = ViewModelProvider(requireActivity()).get(SharedViewModel::class.java)
 
         binding.animFixture.addAnimatorListener(object : Animator.AnimatorListener {
             override fun onAnimationStart(animator: Animator) {
-                // Make the LottieAnimationView visible here
             }
 
             override fun onAnimationEnd(animator: Animator) {
-                // Hide the Lottie AnimationView here
-                binding.animFixture.visibility=View.GONE
+                // Hide the Lottie AnimationView
+                binding.animFixture.visibility = View.GONE
             }
 
             override fun onAnimationCancel(animator: Animator) {}
             override fun onAnimationRepeat(animator: Animator) {}
         })
-
-        //get data from VM
-        viewModel.getFixture()
 
         //observe round list for viewPager
         viewModel.liveFixture.observe(viewLifecycleOwner, {

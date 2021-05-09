@@ -6,36 +6,32 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.slngl.organizesoccerleague.databinding.ItemRoundBinding
+import com.slngl.organizesoccerleague.model.Match
 
 class RoundAdapter : RecyclerView.Adapter<RoundAdapter.RoundViewHolder>() {
 
     inner class RoundViewHolder(binding: ItemRoundBinding) : RecyclerView.ViewHolder(binding.root) {
         val homeTeamName = binding.tvHomeTeam
         val awayTeamName = binding.tvAwayTeam
-        fun bindTo(item: String?) {
-
-            val splited = item?.split("///")
-
-            splited?.let {
-                homeTeamName.text = splited.get(0)
-                awayTeamName.text = splited.get(1)
-            }
+        fun bindTo(item: Match?) {
+            homeTeamName.text = item?.homeTeam
+            awayTeamName.text = item?.awayTeam
         }
     }
 
-    private val diffUtil = object : DiffUtil.ItemCallback<String>() {
-        override fun areItemsTheSame(oldItem: String, newItem: String): Boolean {
+    private val diffUtil = object : DiffUtil.ItemCallback<Match>() {
+        override fun areItemsTheSame(oldItem: Match, newItem: Match): Boolean {
             return oldItem == newItem
         }
 
-        override fun areContentsTheSame(oldItem: String, newItem: String): Boolean {
+        override fun areContentsTheSame(oldItem: Match, newItem: Match): Boolean {
             return oldItem == newItem
         }
     }
 
     private val recyclerListDiffer = AsyncListDiffer(this, diffUtil)
 
-    fun submitList(itemList: List<String>) {
+    fun submitList(itemList: List<Match>) {
         recyclerListDiffer.submitList(itemList)
     }
 

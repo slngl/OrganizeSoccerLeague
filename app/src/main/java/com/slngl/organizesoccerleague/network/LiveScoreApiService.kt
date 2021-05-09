@@ -1,14 +1,11 @@
 package com.slngl.organizesoccerleague.network
 
-import com.slngl.organizesoccerleague.model.BaseResponse
-import com.slngl.organizesoccerleague.model.Data
+import com.slngl.organizesoccerleague.model.TeamsItem
 import retrofit2.Response
 import retrofit2.http.GET
 
 interface LiveScoreApiService {
 
-//    https://livescore-api.com/api-client/teams/list.json?key=rSE51PkvI6DJlLWI&secret=ZgrF4NBfCOcYGck85Zd6PxByEfhZ1dI1
-
-    @GET("teams/list.json?key=rSE51PkvI6DJlLWI&secret=ZgrF4NBfCOcYGck85Zd6PxByEfhZ1dI1")
-    suspend fun getTeams(): Response<BaseResponse<Data>>
+    @GET("api/team")
+    suspend fun getTeams(): Response<List<TeamsItem?>>
 }

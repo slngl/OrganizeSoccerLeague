@@ -8,8 +8,9 @@ import androidx.lifecycle.ViewModelProvider
 import com.slngl.organizesoccerleague.R
 import com.slngl.organizesoccerleague.base.AppConstants.ARG_ROUND
 import com.slngl.organizesoccerleague.databinding.FragmentRoundBinding
+import com.slngl.organizesoccerleague.model.Match
 import com.slngl.organizesoccerleague.ui.adapter.RoundAdapter
-import com.slngl.organizesoccerleague.viewModel.FixtureViewModel
+import com.slngl.organizesoccerleague.viewModel.SharedViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -22,7 +23,7 @@ class RoundFragment : Fragment(R.layout.fragment_round) {
             .apply { arguments = bundleOf(ARG_ROUND to round) }
     }
 
-    private lateinit var viewModel: FixtureViewModel
+    private lateinit var viewModel: SharedViewModel
 
     private val roundAdapter = RoundAdapter()
 
@@ -34,7 +35,7 @@ class RoundFragment : Fragment(R.layout.fragment_round) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel = ViewModelProvider(requireActivity()).get(FixtureViewModel::class.java)
+        viewModel = ViewModelProvider(requireActivity()).get(SharedViewModel::class.java)
 
         val binding = FragmentRoundBinding.bind(view)
 
@@ -45,12 +46,16 @@ class RoundFragment : Fragment(R.layout.fragment_round) {
         //observe round list
         viewModel.liveFixture.observe(viewLifecycleOwner, { roundList ->
             roundList.forEach { round ->
-                if (argRoundId == round.id) {
-                    round.matchList?.let {
-                        roundAdapter.submitList(it)
+                if (argRoundId == 0) {
+                    binding.textView.text = "There are not enough team on the list."
+                } else if (argRoundId == round?.round) {
+                    round.awayTeamList.let {
+                        roundAdapter.submitList(it as List<Match>)
+                        println("${round.round} " + it)
                     }
                     binding.textView.text = "${round.round}. WEEK"
                 }
+
             }
         })
 
